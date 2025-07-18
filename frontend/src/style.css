@@ -1,0 +1,129 @@
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f7f7f7;
+  color: #222;
+  min-height: 100vh;
+  padding: 50px 20px;
+}
+
+.app-header {
+  text-align:center;
+  margin-bottom:2rem;
+  width: 100%;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 2rem;
+  padding: 2rem;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .app-container {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+  }
+}
+
+.panel {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 2rem;
+  flex: 1 1 0;
+  min-width: 300px;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-shortest-route {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+
+  label {
+    width: 100px;
+  }
+
+  input {
+    flex: 1;
+  }
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+input, select, button {
+  padding: 0.7em 1em;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+button {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+button:disabled {
+  background: #b3b3b3;
+  cursor: not-allowed;
+}
+button:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.drag-area {
+  border: 2px dashed #2563eb;
+  border-radius: 8px;
+  background: #f0f6ff;
+  padding: 2rem;
+  text-align: center;
+  color: #2563eb;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+.drag-area.dragover {
+  background: #dbeafe;
+  border-color: #1d4ed8;
+}
+
+.route-result {
+  background: #e0f2fe;
+  border-radius: 8px;
+  padding: 1rem;
+  color: #0369a1;
+  margin-top: 1rem;
+}
+
+@media (max-width: 600px) {
+  .panel {
+    padding: 1rem;
+    height: fit-content;
+  }
+} 

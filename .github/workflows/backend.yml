@@ -1,0 +1,26 @@
+name: Backend CI
+
+on:
+  push:
+    paths:
+      - 'backend/**'
+  pull_request:
+    paths:
+      - 'backend/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+      - run: ./mvnw clean package -DskipTests=false
+      - run: ./mvnw test
+
+# Para deploy automático a Render, Railway, Fly.io, puedes usar webhooks o su CLI en otro job. 
