@@ -1,0 +1,24 @@
+
+version: '3.8'
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend/firebase-service-account.json:/app/firebase-service-account.json:ro
+    environment:
+      - FIREBASE_CONFIG_PATH=/app/firebase-service-account.json
+    networks:
+      - ruta-net
+  frontend:
+    build: ./frontend
+    ports:
+      - "8081:80"
+    depends_on:
+      - backend
+    networks:
+      - ruta-net
+networks:
+  ruta-net:
+    driver: bridge
