@@ -6,130 +6,36 @@ Este proyecto resuelve el desafío de cargar tiempos de viaje entre ubicaciones 
 
 ---
 
+## Despliegue público gratuito (Render, Vercel, Netlify)
+
+### Backend (Java Spring Boot)
+- **Render.com** (recomendado):
+  - El Dockerfile usa multi-stage build, por lo que Render puede construir y ejecutar el backend sin requerir el JAR precompilado.
+  - Solo sube tu repo y Render ejecutará el Dockerfile correctamente.
+  - No necesitas la carpeta `target/` en el repo.
+- **Railway/Fly.io:**
+  - También soportan Docker multi-stage build.
+
+### Frontend (Vue)
+- **Vercel o Netlify** (recomendado):
+  - Sube el contenido de `frontend/` a un repo en GitHub.
+  - Conecta el repo desde el dashboard de Vercel/Netlify.
+  - Build command: `npm run build`  
+    Output dir: `dist`
+  - Obtendrás una URL pública para tu frontend.
+- **GitHub Pages:**
+  - Solo para sitios estáticos. Si usas history mode, configura el rewrite a `index.html`.
+
+### Tips de configuración para despliegue público
+- **CORS:**
+  - Asegúrate de que el backend permita el origen del frontend público (por ejemplo, `https://tufrontend.vercel.app`).
+- **Endpoints:**
+  - En producción, configura el frontend para apuntar a la URL pública del backend.
+- **Variables de entorno:**
+  - Usa variables de entorno en Vercel/Netlify/Render para configurar endpoints y secrets.
+
+---
+
 ## Estructura del Proyecto
 
 ```
-Octadot-test/
-├── backend/        # Backend Java Spring Boot
-├── frontend/       # Frontend Vue 3 + Vite
-├── docker-compose.yml
-├── README.md       # Este archivo
-```
-
----
-
-## Requisitos
-- Docker y Docker Compose
-- (Opcional) Java 21+ y Maven para desarrollo local backend
-- (Opcional) Node.js 20+ y npm para desarrollo local frontend
-
----
-
-## Levantar TODO con Docker Compose
-
-1. Desde la raíz del proyecto:
-   ```bash
-   docker-compose up --build -d
-   ```
-2. Accede a:
-   - **Frontend:** [http://localhost:8081](http://localhost:8081)
-   - **Backend:** [http://localhost:8080](http://localhost:8080)
-3. Para detener:
-   ```bash
-   docker-compose down
-   ```
-
----
-
-## Levantar solo un servicio
-- **Backend:**
-  ```bash
-  docker-compose up --build -d backend
-  ```
-- **Frontend:**
-  ```bash
-  docker-compose up --build -d frontend
-  ```
-
----
-
-## Desarrollo local (opcional)
-- **Backend:**
-  ```bash
-  cd backend
-  mvn spring-boot:run
-  # http://localhost:8080
-  ```
-- **Frontend:**
-  ```bash
-  cd frontend
-  npm install
-  npm run dev
-  # http://localhost:5173
-  ```
-
----
-
-## Formato del CSV
-
-Archivo separado por punto y coma (`;`):
-```
-origen;destino;tiempo
-A;B;10
-B;C;15
-C;D;20
-```
-
----
-
-## Endpoints principales
-
-### Cargar conexiones (CSV)
-- **POST** `/api/connections/upload`
-- Formato: `multipart/form-data` con campo `file`
-
-### Calcular ruta más corta
-- **GET** `/api/routes/shortest?from=ORIGEN&to=DESTINO`
-- Respuesta:
-  ```json
-  { "route": ["A", "B", "C"], "totalTime": 25 }
-  ```
-
-### Listar conexiones
-- **GET** `/api/connections/list`
-
----
-
-## Pruebas y troubleshooting
-
-- Si tienes errores de CORS, asegúrate de que el backend permite los orígenes `http://localhost:8081` y `http://localhost:5173`.
-- Si tienes error 405 o 500, revisa los logs del backend y frontend:
-  ```bash
-  docker-compose logs backend
-  docker-compose logs frontend
-  ```
-- Si cambias código, ejecuta:
-  ```bash
-  mvn clean package -DskipTests
-  docker-compose build backend
-  docker-compose restart backend
-  ```
-
----
-
-## Testing
-- El backend incluye pruebas unitarias y de integración (ver carpeta `backend/src/test`).
-- Para correr tests backend:
-  ```bash
-  cd backend
-  mvn test
-  ```
-
----
-
-## Notas finales
-- El sistema está listo para producción o pruebas locales.
-- Puedes extender la solución para autenticación JWT, multiempresa real, o persistencia en base de datos.
-- Para dudas o mejoras, revisa los README de cada subcarpeta.
-
----

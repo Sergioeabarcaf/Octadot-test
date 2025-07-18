@@ -12,6 +12,22 @@ Backend Java Spring Boot para cargar tiempos de viaje entre ubicaciones desde un
 
 ---
 
+## Build multi-stage para despliegue en Render, Railway, Fly.io
+
+El Dockerfile usa un **multi-stage build**: construye el JAR dentro del contenedor usando Maven y luego lo ejecuta en una imagen ligera. No necesitas compilar el JAR antes de hacer el build de la imagen.
+
+### Ejemplo de build local
+```bash
+docker build -t ruta-backend .
+docker run -p 8080:8080 ruta-backend
+```
+
+### Despliegue en Render
+- Solo sube tu repo y Render ejecutará el Dockerfile correctamente.
+- No necesitas el JAR precompilado ni la carpeta `target/` en el repo.
+
+---
+
 ## Levantar solo el backend con Docker Compose
 
 Desde la raíz del proyecto o desde la carpeta backend:
