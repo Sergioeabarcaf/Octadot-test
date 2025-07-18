@@ -20,7 +20,7 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-      - run: ./mvnw clean package -DskipTests=false
-      - run: ./mvnw test
+      - run: mvn clean package -DskipTests=false
+      - run: mvn test
 
 # Para deploy automático a Render, Railway, Fly.io, puedes usar webhooks o su CLI en otro job. 
