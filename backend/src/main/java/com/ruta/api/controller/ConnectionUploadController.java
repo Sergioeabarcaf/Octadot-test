@@ -48,7 +48,7 @@ public class ConnectionUploadController {
                 // Skip header line if it contains non-numeric values
                 if (isFirstLine) {
                     try {
-                        String[] parts = line.split(",");
+                        String[] parts = line.split(";");
                         if (parts.length == 3) {
                             Integer.parseInt(parts[2].trim());
                         }
@@ -60,7 +60,7 @@ public class ConnectionUploadController {
                     isFirstLine = false;
                 }
                 
-                String[] parts = line.split(",");
+                String[] parts = line.split(";");
                 if (parts.length != 3) {
                     logger.warning("Invalid format at line " + lineNumber);
                     return ResponseEntity.badRequest().body("Invalid format at line " + lineNumber);

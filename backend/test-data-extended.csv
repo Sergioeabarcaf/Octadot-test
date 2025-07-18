@@ -1,7 +1,7 @@
-origen,destino,tiempo
-A,B,10
-B,C,15
-C,D,20
-A,C,25
-B,D,30
-A,D,40 
+origen;destino;tiempo
+A;B;10
+B;C;15
+C;D;20
+A;C;25
+B;D;30
+A;D;40 
