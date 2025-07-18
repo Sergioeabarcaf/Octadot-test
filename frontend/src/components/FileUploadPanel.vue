@@ -85,7 +85,8 @@ async function onUpload() {
   try {
     const formData = new FormData()
     formData.append('file', file.value)
-    await axios.post('/api/connections/upload', formData)
+    const apiUrl = import.meta.env.VITE_API_URL || '/api';
+    await axios.post(`${apiUrl}/connections/upload`, formData)
     success.value = true
     emit('uploaded')
   } catch (err) {
