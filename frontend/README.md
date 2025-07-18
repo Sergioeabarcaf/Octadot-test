@@ -60,3 +60,15 @@ npm run dev
   ```
 
 ---
+
+## Despliegue en producción (Vercel, Netlify, etc)
+
+Para que el frontend se comunique con el backend público, crea un archivo `.env.production` en la carpeta `frontend/` con el siguiente contenido:
+
+```
+VITE_API_URL=https://octadot-test.onrender.com/api
+```
+
+Esto hará que el build de producción use la URL pública del backend desplegado en Render. Si cambias la URL del backend, actualiza este valor.
+
+---
