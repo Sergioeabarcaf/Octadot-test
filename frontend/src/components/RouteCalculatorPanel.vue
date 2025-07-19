@@ -52,7 +52,8 @@ onMounted(() => {
 async function fetchLocations() {
   // Obtenemos las ubicaciones desde el endpoint de conexiones
   try {
-    const res = await axios.get('/api/connections/list')
+    const apiUrl = import.meta.env.VITE_API_URL || '/api';
+    const res = await axios.get(`${apiUrl}/connections/list`)
     // Extraer ubicaciones del texto de respuesta
     const match = res.data.match(/\[(.*?)\]/)
     if (match && match[1]) {
@@ -70,7 +71,8 @@ async function onCalculate() {
   if (!from.value || !to.value) return
   loading.value = true
   try {
-    const res = await axios.get('/api/routes/shortest', {
+    const apiUrl = import.meta.env.VITE_API_URL || '/api';
+    const res = await axios.get(`${apiUrl}/routes/shortest`, {
       params: { from: from.value, to: to.value }
     })
     route.value = res.data.route
